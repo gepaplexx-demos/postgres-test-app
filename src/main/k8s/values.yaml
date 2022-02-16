@@ -1,0 +1,24 @@
+postgresTestApp:
+  nameOverride: postgres-test-app
+  image:
+    name: ghcr.io/gattma/postgres-test-app
+    tag: 1.0.0
+  route:
+    enabled: true
+  env:
+  - name: QUARKUS_DATASOURCE_USERNAME
+    value: postgres
+  - name: QUARKUS_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgres-test-app-postgresql
+        key: postgres-password
+  - name: QUARKUS_DATASOURCE_JDBC_URL
+    value: jdbc:postgresql://postgres-test-app-postgresql.wordpress-mysql-bke-test.svc.cluster.local/postgres
+
+postgresql:
+  primary:
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false

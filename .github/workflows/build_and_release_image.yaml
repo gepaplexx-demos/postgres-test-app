@@ -29,7 +29,7 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: push-container-image
         with:
-          image: git-workflows
+          image: db-test-app
           registry: ghcr.io
           username: ${{ github.repository }}
           password: ${{ secrets.GHCR_TOKEN }}

@@ -36,7 +36,7 @@ public class PersonService {
         add("Stephanie Tucker");
     }};
 
-    // @Inject
+    @Inject
     PersonRepository personRepository;
 
     @Transactional

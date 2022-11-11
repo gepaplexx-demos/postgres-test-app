@@ -1,0 +1,31 @@
+apiVersion: binding.operators.coreos.com/v1alpha1
+kind: ServiceBinding
+metadata:
+  name: testapp-postgres-binding
+spec:
+  mappings:
+    - name: QUARKUS_DATASOURCE_USERNAME
+      value: postgres
+    - name: QUARKUS_DATASOURCE_PASSWORD
+      value: '{{ "{{" }} index . "postgres-password" {{ "}}" }}'
+    - name: QUARKUS_DATASOURCE_JDBC_URL
+      value: >-
+        jdbc:postgresql://{{ "{{" }} .db.metadata.name {{ "}}" }}.{{ "{{" }} .db.metadata.namespace
+        {{ "}}" }}.svc.cluster.local/postgres
+  application:
+    group: apps
+    name: postgres-test-app
+    resource: deployments
+    version: v1
+  bindAsFiles: false
+  services:
+    - group: ''
+      id: dbSecret
+      kind: Secret
+      name: testapp-postgresql
+      version: v1
+    - group: apps
+      id: db
+      kind: StatefulSet
+      name: testapp-postgresql
+      version: v1

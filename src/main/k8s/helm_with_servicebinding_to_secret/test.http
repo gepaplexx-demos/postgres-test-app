@@ -1,0 +1,17 @@
+# TODO set url in http-client.env.json
+
+### Initialize db with dummy data
+POST {{url}}/person/initialize
+Content-Type: application/json
+
+### Add a person
+POST {{url}}/person
+Content-Type: application/json
+
+{
+  "name": "Super Mario"
+}
+
+### Get all persons
+GET {{url}}/person
+Accept: application/json
